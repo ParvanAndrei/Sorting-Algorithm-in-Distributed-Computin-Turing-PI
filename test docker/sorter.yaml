@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd_3            
+  containers:
+      - name: client
+        image: andrewlp/sorter:latest
+        ports:
+          - containerPort: 3000
+        command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]

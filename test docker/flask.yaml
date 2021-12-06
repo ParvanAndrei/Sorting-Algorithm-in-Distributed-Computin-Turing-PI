@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: heap1
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd_2
+  containers:
+      - name: heap1
+        image: andrewlp/heap_test1:latest
+        ports:
+          - containerPort: 1883
+        command: [ "python", "subber.py" ]
